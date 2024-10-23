@@ -1,14 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { useReducer, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 // import { toast } from "@/components/ui/use-toast"
+import {} from ''
+import Reducer, { initalState } from "./reducer/reducer"
+import { addBook } from "./reducer/action"
+
 
 export default function SimpleAddBook() {
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
+  const [state, dispatch] = useReducer(Reducer, initalState)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,6 +32,10 @@ export default function SimpleAddBook() {
     //     variant: "destructive",
     //   })
     }
+  }
+
+  const handleAdd = () => {
+    dispatch(addBook({title , author}))
   }
 
   return (
@@ -51,7 +60,7 @@ export default function SimpleAddBook() {
           required
         />
       </div>
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" onClick={handleAdd()}>
         Add Book
       </Button>
     </form>
